@@ -1,0 +1,324 @@
+// converted by version  [v3.0.5]
+// on Fri Mar 04 18:00:48 CST 2016
+
+.package com/sun/jcclassic/samples/rmi {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x8;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x3 1.0;		//java/rmi
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.6;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1:0x1 1.0;		//javacard/framework/service
+	}
+
+	.applet {
+		0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x8:0x1 PurseApplet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef 1.0 PurseApplet/purse;
+		// 1
+		instanceFieldRef 3.6 PurseApplet/disp;
+		// 2
+		instanceFieldRef 3.2 PurseApplet/serv;
+		// 3
+		instanceFieldRef short PurseImpl/balance;
+		// 4
+		instanceFieldRef byte[] PurseImpl/number;
+		// 5
+		staticMethodRef 3.6.0(S)V;		// javacard/framework/service/Dispatcher.<init>(S)V
+		// 6
+		.classRef PurseImpl;
+		// 7
+		.classRef 3.4;		// javacard/framework/service/RMIService
+		// 8
+		staticMethodRef 3.4.0(Ljava/rmi/Remote;)V;		// javacard/framework/service/RMIService.<init>(Ljava/rmi/Remote;)V
+			.descriptor	Ljava/rmi/Remote;	1.0;
+
+		// 9
+		staticMethodRef PurseImpl/<init>()V;
+		// 10
+		virtualMethodRef 3.6.1(Ljavacard/framework/service/Service;B)V;		// addService(Ljavacard/framework/service/Service;B)V
+			.descriptor	Ljavacard/framework/service/Service;	3.0;
+
+		// 11
+		virtualMethodRef 2.3.1()V;		// register()V
+		// 12
+		.classRef PurseApplet;
+		// 13
+		staticMethodRef PurseApplet/<init>()V;
+		// 14
+		virtualMethodRef 3.6.4(Ljavacard/framework/APDU;)V;		// process(Ljavacard/framework/APDU;)V
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+		// 15
+		staticMethodRef 3.5.0()V;		// javacard/framework/service/CardRemoteObject.<init>()V
+		// 16
+		staticMethodRef 2.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 17
+		.classRef 3.6;		// javacard/framework/service/Dispatcher
+		// 18
+		staticMethodRef 2.15.2(S)V;		// javacard/framework/UserException.throwIt(S)V
+		// 19
+		staticMethodRef 2.16.1([BS[BSS)S;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+	}
+
+	.interface public abstract Purse 0 {
+
+		.remote;
+
+		.superInterfaces {
+			1.0;		// java/rmi/Remote
+		}
+
+		.fields {
+			public static final short UNDERFLOW = 24576;		// S
+			public static final short OVERFLOW = 24577;		// S
+			public static final short BAD_ARGUMENT = 24578;		// S
+			public static final short MAX_AMOUNT = 400;		// S
+		}
+
+		.method public abstract .remote  getBalance()S 0 {
+		}
+
+		.method public abstract .remote  debit(S)V 1 {
+		}
+
+		.method public abstract .remote  credit(S)V 2 {
+		}
+
+		.method public abstract .remote  setAccountNumber([B)V 3 {
+		}
+
+		.method public abstract .remote  getAccountNumber()[B 4 {
+		}
+
+	}
+
+	.class public PurseApplet 1 extends 2.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 3.6 disp 0;		// Ljavacard/framework/service/Dispatcher;
+			private 3.2 serv 1;		// Ljavacard/framework/service/RemoteService;
+			private 1.0 purse 2;		// Ljava/rmi/Remote;
+		}
+
+		.publicMethodTable 7 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 4;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 16;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					new 6;		// com/sun/jcclassic/samples/rmi/PurseImpl
+					dup;
+					invokespecial 9;		// com/sun/jcclassic/samples/rmi/PurseImpl.<init>()V
+					putfield_a 0;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.purse
+					aload_0;
+					new 17;		// javacard/framework/service/Dispatcher
+					dup;
+					sconst_1;
+					invokespecial 5;		// javacard/framework/service/Dispatcher.<init>(S)V
+					putfield_a 1;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.disp
+					aload_0;
+					new 7;		// javacard/framework/service/RMIService
+					dup;
+					getfield_a_this 0;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.purse
+					invokespecial 8;		// javacard/framework/service/RMIService.<init>(Ljava/rmi/Remote;)V
+					putfield_a 2;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.serv
+					getfield_a_this 1;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.disp
+					getfield_a_this 2;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.serv
+					sconst_2;
+					invokevirtual 10;		// addService(Ljavacard/framework/service/Service;B)V
+					aload_0;
+					invokevirtual 11;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 1;
+			.locals 0;
+
+				L0:	new 12;		// com/sun/jcclassic/samples/rmi/PurseApplet
+					invokespecial 13;		// com/sun/jcclassic/samples/rmi/PurseApplet.<init>()V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 2;
+			.locals 0;
+
+			.descriptor	Ljavacard/framework/APDU;	2.10;
+
+				L0:	getfield_a_this 1;		// reference com/sun/jcclassic/samples/rmi/PurseApplet.disp
+					aload_1;
+					invokevirtual 14;		// process(Ljavacard/framework/APDU;)V
+					return;
+		}
+
+	}
+
+	.class public PurseImpl 2 extends 3.5 {		// extends javacard/framework/service/CardRemoteObject
+
+		.remote;
+
+		.fields {
+			private byte[] number 0;		// [B
+			private short balance 1;		// S
+		}
+
+		.publicMethodTable 1 {
+			equals(Ljava/lang/Object;)Z;
+			setAccountNumber([B)V;
+			credit(S)V;
+			debit(S)V;
+			getAccountNumber()[B;
+			getBalance()S;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.implementedInterfaceInfoTable { 
+			.interface 1.0 { 		// java/rmi/Remote
+			}
+
+			.interface Purse { 
+				5;		// getBalance()S
+				3;		// debit(S)V
+				2;		// credit(S)V
+				1;		// setAccountNumber([B)V
+				4;		// getAccountNumber()[B
+			}
+
+		}
+
+		.implementedRemoteInterfaceInfoTable { 
+			.interface Purse { 
+				getBalance()S 5;		// getBalance()S
+				debit(S)V 3;		// debit(S)V
+				credit(S)V 2;		// credit(S)V
+				setAccountNumber([B)V 1;		// setAccountNumber([B)V
+				getAccountNumber()[B 4;		// getAccountNumber()[B
+			}
+
+		}
+
+		.method public <init>()V 0 {
+			.stack 2;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 15;		// javacard/framework/service/CardRemoteObject.<init>()V
+					aload_0;
+					sconst_0;
+					putfield_s 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					aload_0;
+					sconst_5;
+					newarray 11;
+					putfield_a 4;		// reference com/sun/jcclassic/samples/rmi/PurseImpl.number
+					return;
+		}
+
+		.method public .remote  setAccountNumber([B)V 1 {
+			.stack 5;
+			.locals 0;
+
+				L0:	aload_1;
+					arraylength;
+					sconst_5;
+					if_scmpeq L2;
+				L1:	sspush 24578;
+					invokestatic 18;		// javacard/framework/UserException.throwIt(S)V
+				L2:	aload_1;
+					sconst_0;
+					getfield_a_this 4;		// reference com/sun/jcclassic/samples/rmi/PurseImpl.number
+					sconst_0;
+					sconst_5;
+					invokestatic 19;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					return;
+		}
+
+		.method public .remote  credit(S)V 2 {
+			.stack 3;
+			.locals 0;
+
+				L0:	sload_1;
+					ifgt L2;
+				L1:	sspush 24578;
+					invokestatic 18;		// javacard/framework/UserException.throwIt(S)V
+				L2:	getfield_s_this 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					sload_1;
+					sadd;
+					sspush 400;
+					if_scmple L4;
+				L3:	sspush 24577;
+					invokestatic 18;		// javacard/framework/UserException.throwIt(S)V
+				L4:	aload_0;
+					dup;
+					getfield_s 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					sload_1;
+					sadd;
+					putfield_s 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					return;
+		}
+
+		.method public .remote  debit(S)V 3 {
+			.stack 3;
+			.locals 0;
+
+				L0:	sload_1;
+					ifgt L2;
+				L1:	sspush 24578;
+					invokestatic 18;		// javacard/framework/UserException.throwIt(S)V
+				L2:	getfield_s_this 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					sload_1;
+					ssub;
+					ifge L4;
+				L3:	sspush 24576;
+					invokestatic 18;		// javacard/framework/UserException.throwIt(S)V
+				L4:	aload_0;
+					dup;
+					getfield_s 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					sload_1;
+					ssub;
+					putfield_s 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					return;
+		}
+
+		.method public .remote  getAccountNumber()[B 4 {
+			.stack 1;
+			.locals 0;
+
+				L0:	getfield_a_this 4;		// reference com/sun/jcclassic/samples/rmi/PurseImpl.number
+					areturn;
+		}
+
+		.method public .remote  getBalance()S 5 {
+			.stack 1;
+			.locals 0;
+
+				L0:	getfield_s_this 3;		// short com/sun/jcclassic/samples/rmi/PurseImpl.balance
+					sreturn;
+		}
+
+	}
+
+}

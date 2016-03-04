@@ -1,0 +1,10 @@
+// Applet Selection APDU Script
+//
+// Package:     com.sun.jcclassic.samples.rmi
+// Package AID: //aid/A000000062/03010C08
+// Applet:      PurseApplet
+// Applet AID:  //aid/A000000062/03010C0801
+//
+
+// Select PurseApplet applet
+0x00 0xA4 0x04 0x00 0x0A 0xA0 0x00 0x00 0x00 0x62 0x03 0x01 0x0C 0x08 0x01 0x7F;

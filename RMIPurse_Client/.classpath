@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="Sample_Platform_HOME/lib/tools.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RMIPurse_Applet"/>
+	<classpathentry kind="var" path="Sample_Platform_HOME/lib/api_classic.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:C:\Program Files (x86)\Oracle\Java Card Development Kit 3.0.5\docs\api"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/RMIPurse_Applet/stubs"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 1998, 2015, Oracle and/or its affiliates. All rights reserved.
+-->
+
+<!--
+-->
+<project name="Java Card 3.0 Classic Edition Samples [RMI Purse Client]"
+         default="all"
+         basedir=".">
+
+    <dirname property="this.dir" file="${basedir}/dummy.txt" />
+    <dirname property="jc.home" file="${this.dir}/../../../../dummy.txt" />
+    <basename file="${basedir}" property="client.name" />
+
+    <!-- -->
+    <target name="clean">
+        <delete dir="./build" />
+    </target>
+
+    <!-- -->
+    <target name="init">
+        <mkdir dir="./build/classes" />
+    </target>
+
+    <!-- -->
+    <target name="compile" depends="init">
+        <javac destdir="./build/classes"
+               source="7"
+               target="7"
+               debug="yes"
+               optimize="yes">
+            <src path="./src" />
+            <src path="../../RMIPurse/applet/src" />
+            <!-- src path="../../jcclientlib/src" /-->
+            <classpath>
+                <fileset dir="${jc.home}/lib">
+                    <include name="api_classic.jar" />
+                    <include name="tools.jar" />                    
+                </fileset>
+                <dirset dir="../applet/build/classes"/>
+
+            </classpath>
+            <compilerarg line="-Xlint:unchecked" />
+        </javac>
+    </target>
+
+    <!-- -->
+    <target name="build" depends="compile">
+        <copy todir="./build/classes">
+            <fileset dir="./src">
+                <include name="**/*.properties" />
+            </fileset>
+            <fileset dir="../../RMIPurse/applet/src">
+                <include name="**/*.properties" />
+            </fileset>
+            <!--fileset dir="../../jcclientlib/src">
+                <include name="**/*.properties" />
+            </fileset-->
+            <fileset dir="..">
+                <include name="*.properties"/>
+            </fileset>
+        </copy>
+        <jar destfile="./build/${client.name}.jar" basedir="./build/classes" />
+    </target>
+
+    <target name="rmic" depends="build">
+    	<rmic classname="com.sun.jcclassic.samples.rmi.PurseImpl" base="../applet/build/classes" stubversion="-v1.2">
+    	    <classpath>
+                <pathelement path="./build/${client.name}.jar"/>
+                <fileset dir="${jc.home}/lib">
+                    <include name="api_classic.jar" />	
+                    <include name="tools.jar" />
+                </fileset>
+                <dirset dir="." />
+                <dirset dir="../applet/build/classes" />
+            </classpath>
+        </rmic>
+    </target>
+    
+    <target name="run" depends="rmic">
+        <java classname="com.sun.jcclassic.clients.purseclient.PurseClient" output="./rmidemo.actual.output">
+            <classpath>
+                <path path="./build/${client.name}.jar"/>
+                <fileset dir="${jc.home}/lib">
+                    <include name="tools.jar" />
+                </fileset>
+                <dirset dir="." />
+                <dirset dir="../applet/build/classes" />
+            </classpath>
+        </java>
+    </target>
+
+    <!-- -->
+    <target name="all" depends="run" />
+</project>

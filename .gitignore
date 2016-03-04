@@ -1,4 +1,0 @@
-#ignore bin
-bin/
-.gen/
-*.class
